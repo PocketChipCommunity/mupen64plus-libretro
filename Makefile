@@ -119,6 +119,20 @@ else ifneq (,$(findstring rpi,$(platform)))
    COREFLAGS += -DOS_LINUX
    ASFLAGS = -f elf -d ELF_TYPE
 
+else ifeq ($(platform), pocketchip)
+   TARGET := $(TARGET_NAME)_libretro.so
+   LDFLAGS += -shared -Wl,--version-script=$(LIBRETRO_DIR)/link.T -Wl,--no-undefined
+   GLES = 1
+   GL_LIB := /usr/lib/arm-linux-gnueabihf/libGLESv2.so
+   CPUFLAGS += -marm -mcpu=cortex-a8 -mfloat-abi=hard -mfpu=neon
+   WITH_DYNAREC=arm
+   HAVE_NEON = 1
+   PLATCFLAGS += -DNO_ASM
+   PLATCFLAGS += -marm
+   CPUFLAGS += -DNO_ASM -DARM -D__arm__ -DARM_ASM -D__NEON_OPT
+   COREFLAGS += -DOS_LINUX
+   ASFLAGS = -f elf -d ELF_TYPE
+
 # Nintendo Switch
 else ifeq ($(platform), libnx)
    include $(DEVKITPRO)/libnx/switch_rules
