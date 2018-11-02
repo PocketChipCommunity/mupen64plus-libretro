@@ -127,9 +127,6 @@ else ifeq ($(platform), pocketchip)
    CPUFLAGS += -marm -mcpu=cortex-a8 -mfloat-abi=hard -mfpu=neon
    WITH_DYNAREC=arm
    HAVE_NEON = 1
-   PLATCFLAGS += -DNO_ASM
-   PLATCFLAGS += -marm
-   CPUFLAGS += -DNO_ASM -DARM -D__arm__ -DARM_ASM -D__NEON_OPT
    COREFLAGS += -DOS_LINUX
    ASFLAGS = -f elf -d ELF_TYPE
 
